@@ -1,0 +1,6 @@
+---
+instances: 1
+memory: 1G
+applications:
+- name: marketdata-sample
+  path: ./target/marketdata-sample-0.0.1-SNAPSHOT.jar

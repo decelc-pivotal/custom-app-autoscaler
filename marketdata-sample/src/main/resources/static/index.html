@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<script type="text/javascript">
+
+	window.onload = function () {
+
+		var dps = []; // dataPoints
+
+		var chart = new CanvasJS.Chart("chartContainer",{
+			title :{
+				text: "NYSE Daily Change %"
+			},		
+	        axisX:{      
+	            valueFormatString: "hh:mm:ss TT" ,
+	            labelAngle: -90
+	        },	
+	        axisY:{      
+	            minimum: -0.5,
+	            maximum: 0.5
+	        },	
+			data: [{
+				type: "line",
+				dataPoints: dps 
+			}]
+		});
+
+		var xVal = 0;
+		var yVal = 100;	
+		var updateInterval = 10000;
+		var dataLength = 500; // number of dataPoints visible at any point
+
+		var updateChart = function (count) {
+			
+			$.ajax({
+		        url : "/nyse",
+		        dataType:"json",
+		        success:function(data)
+		        {
+					yVal = 0;
+					newd = new Date();
+					
+					dps.push({
+						x: newd,
+						y: Number(data.day_chg)
+					});
+					
+					chart.render();	
+		        }
+		    });
+		};
+
+		// generates first set of dataPoints
+		updateChart(dataLength); 
+
+		// update chart after specified time. 
+		setInterval(function(){updateChart()}, updateInterval); 
+
+	}
+	</script>
+	<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script> 
+	<script type="text/javascript" src="js/canvasjs.min.js"></script>
+	
+	<script type="text/javascript">
+		
+		// A $( document ).ready() block.
+		$( document ).ready(function() {
+			
+			$( "#target" ).submit(function( event ) {
+				  $.ajax({
+				        url : "/set",
+				        data:{
+				            day: $( "#day_chg" ).val()
+				         },
+				        success:function(data)
+				        {
+				        }
+				    });
+				  
+				  event.preventDefault();
+				});
+		});
+	</script>
+</head>
+<body>
+	<div id="chartContainer" style="height: 500px; width:100%;">
+	</div>
+	
+	<div style="padding:30px;">
+		<form id="target" action="destination.html">
+		  <label for="day_chg">Daily Change Value</label>
+		  <input id="day_chg" type="text" value="">
+		  <input type="submit" value="Change">
+		</form>
+	</div>
+</body>
+</html>

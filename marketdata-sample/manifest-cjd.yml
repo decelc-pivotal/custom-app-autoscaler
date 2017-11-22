@@ -1,0 +1,7 @@
+---
+instances: 1
+memory: 512M
+applications:
+- name: ecomdata
+  host: ecomdata
+  path: ./target/marketdata-0.0.1-SNAPSHOT.jar
