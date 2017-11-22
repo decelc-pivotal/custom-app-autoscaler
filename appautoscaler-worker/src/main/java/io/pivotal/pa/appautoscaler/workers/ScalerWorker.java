@@ -38,8 +38,6 @@ import org.springframework.web.client.RestTemplate;
 import io.pivotal.pa.appautoscaler.domain.Rule;
 import io.pivotal.pa.appautoscaler.helper.Connection;
 import io.pivotal.pa.appautoscaler.repositories.RuleRepository;
-import io.pivotal.pa.appautoscaler.repositories.ServiceBindingRepository;
-import io.pivotal.pa.appautoscaler.repositories.ServiceInstanceRepository;
 
 
 
@@ -48,12 +46,6 @@ public class ScalerWorker {
 
 	@Autowired
 	RuleRepository ruleRepository;
-
-	@Autowired
-	ServiceInstanceRepository serviceInstanceRepository;
-
-	@Autowired
-	ServiceBindingRepository serviceBindingRepository;
 
 	private boolean debug = false;
 

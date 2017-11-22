@@ -1,6 +1,5 @@
 package io.pivotal.pa.appautoscaler.controllers;
 
-import java.util.Date;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import io.pivotal.pa.appautoscaler.domain.Rule;
-import io.pivotal.pa.appautoscaler.domain.ServiceBinding;
 import io.pivotal.pa.appautoscaler.repositories.RuleRepository;
-import io.pivotal.pa.appautoscaler.repositories.ServiceBindingRepository;
 
 
 
@@ -35,9 +32,6 @@ public class AppScalerController {
 
 	@Autowired
 	RuleRepository ruleRepository;
-	
-	@Autowired
-	ServiceBindingRepository serviceBindingRepository;
 
 	@RequestMapping("/email")
 	public String email() {
@@ -62,22 +56,6 @@ public class AppScalerController {
 		List<Rule> rules = ruleRepository.findByAppGUID(rule.getAppGUID());
 		JSONParser parser = new JSONParser();
 		JSONObject vcap = null;
-		
-		Iterable<ServiceBinding> bindings = serviceBindingRepository.findByAppGUID(rule.getAppGUID());
-
-		if (!bindings.iterator().hasNext()) {
-
-			ServiceBinding serviceBinding = new ServiceBinding();
-			serviceBinding.setAppGUID(rule.getAppGUID());
-			serviceBinding.setPlanID("_not_defined");
-			serviceBinding.setServiceID("_not_defined");
-			serviceBinding.setBindingID("_not_defined");
-			serviceBinding.setCreated(new Date());
-			serviceBinding.setModified(new Date());
-
-			ServiceBinding _sb = serviceBindingRepository.save(serviceBinding);
-			assert _sb != null;
-		}
 
 		String id = "";
 		Rule savedRule;
@@ -114,10 +92,5 @@ public class AppScalerController {
 	@DeleteMapping("/rules")
 	public void deleteRules() {
 		ruleRepository.deleteAll();
-	}
-
-	@GetMapping("/bindings")
-	public Iterable<ServiceBinding> serviceBindings() {
-		return serviceBindingRepository.findAll();
 	}
 }
