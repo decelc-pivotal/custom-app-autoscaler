@@ -1,0 +1,35 @@
+spring:
+  application: 
+    name: appscaler-worker
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+  mail:
+    host: smtp.live.com
+    port: 25
+    username: chris_decelles@hotmail.com
+    password: 
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enabled: true
+            required: true
+    
+server:
+  port: 8882
+  
+---
+
+spring:
+  profiles: default
+  jpa:
+    database: HSQL
+    
+---
+
+spring:
+  profiles: cloud
+  jpa:
+    database: MYSQL

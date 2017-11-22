@@ -1,0 +1,12 @@
+---
+instances: 1
+memory: 1024M
+applications:
+- name: appautoscaler-worker
+  host: appautoscaler-worker
+  path: ./target/appautoscaler-worker-0.0.1-SNAPSHOT.jar
+  services:
+  - mysql
+  env:
+    CF_ADMIN_USER: autoscaler_admin
+    LOGIN_HOST: https://login.system.decelles.io
