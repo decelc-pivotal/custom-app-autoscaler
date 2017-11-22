@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>CJD PCF Manager</title>
+    <meta charset="utf-8">
+    <meta name="referrer" content="never">
+    <link rel="icon" type="image/png" href="data:image/png;base64,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">
+   
+    <link href="css/components.css" media="all" rel="stylesheet">
+    <link href="css/application-frame.css" media="all" rel="stylesheet">   
+    <link href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">   
+  	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
+  
+   	<link href="http://querybuilder.js.org/assets/css/docs.min.css" rel="stylesheet">
+  	<link href="http://querybuilder.js.org/assets/css/style.css" rel="stylesheet">
+    <link href="http://querybuilder.js.org/dist/jQuery-QueryBuilder/dist/css/query-builder.default.min.css" rel="stylesheet">
+ 
+   	<!-- Angular Material style sheet -->
+  	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.css">
+   
+    <link href="css/markettracker.css" media="all" rel="stylesheet">
+   
+    <script type="application/javascript">
+      (function () {
+    //    var config = {"clientId":"apps_manager_js","uaaUrl":"https://login.run.pivotal.io","appsManagerUrl":"https://console.run.pivotal.io","logoutUrl":"https://console.run.pivotal.io/pws/log_out","systemDomain":"run.pivotal.io","appsDomain":"cfapps.io","disableHttpForLinks":"false","loggregatorUrl":"https://doppler.run.pivotal.io","loggregatorWebSocketUrl":"wss://doppler.run.pivotal.io:443","metricsUrl":"https://metrics.run.pivotal.io","accountUrl":"https://account.run.pivotal.io/identity/profile","docsBaseUrl":"https://docs.run.pivotal.io","feedbackServiceUrl":"https://feedback-service.cfapps.io","invitationsServiceUrl":"https://invitations.run.pivotal.io","billingEnabled":"true","springIntegrationEnabled":"true","displayPlanPrices":"true","currencyLookup":{"usd":"$","eur":"€"},"createUpsEnabled":"false","invitationsServiceEnabled":"true","pushAppDocsUrl":"http://docs.run.pivotal.io/starting/#deploy-app","serviceParamsDocsUrl":"https://docs.run.pivotal.io/devguide/services/managing-services.html#arbitrary-params-create","companyName":"Pivotal","productName":"Web Services","marketplaceName":"Marketplace","accentColor":"#00A79D","squareLogoDataUrl":"data:image/png;base64,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","footerText":"","footerLinks":[{"name":"Terms","href":"http://run.pivotal.io/policies/terms-of-service"},{"name":"Privacy","href":"http://run.pivotal.io/policies/privacy-policy"}],"sidebarLinks":[{"name":"Marketplace","href":"/marketplace"},{"name":"Docs","href":"http://docs.run.pivotal.io"},{"name":"Support","href":"https://support.run.pivotal.io/home"},{"name":"Tools","href":"/tools"},{"name":"Blog","href":"https://blog.pivotal.io/pivotal-cloud-foundry"},{"name":"Status","href":"https://status.run.pivotal.io"}],"globalWrapperBgColor":"","globalWrapperTextColor":"","globalWrapperHeaderContent":"","globalWrapperFooterContent":"","majorVersion":"1","minorVersion":"10"};
+       // Singular.init({
+       //   clientId: config.clientId,
+       //   uaaLocation: config.uaaUrl
+       // });
+
+        document.addEventListener("DOMContentLoaded", function () {
+          document.styleSheets[0].insertRule('.nav.nav-tabs>li.active>a:after { background-color: #00A79D !important; }', 0);
+          document.styleSheets[0].insertRule('.active-sidebar-border { border-left: 2px solid #00A79D !important; }', 0);
+          document.styleSheets[0].insertRule('.loading-spinner { background-image: linear-gradient(to right, transparent 50%, #00A79D 0) !important; }', 0);
+          document.styleSheets[0].insertRule('.global-wrapper { background-color: #D6D6D6 !important; color: #333 !important; }', 0);
+
+          if ('' && '') {
+            window.airbrake = new airbrakeJs.Client({
+              projectId: '',
+              projectKey: ''
+            });
+            try {
+             // AppsManager.start({config: config});
+            } catch (err) {
+              window.airbrake.notify(err);
+            }
+          } else {
+           // AppsManager.start({config: config});
+          }
+        });
+      })();
+      
+      function successCallback1(data) {
+    	  
+      }
+      
+      function successCallback(data) {
+      	ret = data;      	
+      	returnData = ret.data;
+      	
+      	if (returnData["return-value"]==="success") {      		
+      		json = returnData["return-elements"];
+      		var text = "[";
+      			
+      		for(var i = 0; i < json.length; i++) {
+      			d = json[i];
+      			for (var key in d) { 
+      				if (!d.hasOwnProperty(key)) { 
+      					continue; 
+      		    	} else {	
+      		    		
+      		    		console.log("###### key=" + key);
+      		    		text = text + '{"id":"' + key + '", "label":"' + key + '", "type":"double"}';
+      		    		if (i != (json.length  - 1)) {
+      		    			text = text + ",";
+      		    		}
+      		    	}
+      		  };
+      		}
+      		
+      		text = text + "]";
+      		
+           	//$("#ruleURL").css('background-color', '#66ff66 !important');
+           	$("#ruleURL").removeClass("cjd-invalid");
+           	$("#ruleURL").addClass("cjd-valid");
+            var obj = JSON.parse(text);
+           	$('#builder-basic').queryBuilder('setFilters',   obj);
+      	} else {
+      		//$("#ruleURL").css('background-color', '#ff3300');	
+      		$("#ruleURL").removeClass("cjd-valid");
+      		$("#ruleURL").addClass("cjd-invalid");
+      	}
+      }
+      
+      function errorCallback(data) {
+        	console.info("error call back function");
+        	//console.log(data);
+        	//$("#ruleURL").css('background-color', '#ff3300');	
+        	$("#ruleURL").removeClass("cjd-valid");
+        	$("#ruleURL").addClass("cjd-invalid");
+        }
+    </script>
+
+<style type="text/css">
+[ng\:cloak], [ng-cloak], .ng-cloak {
+	display: none !important;
+}
+</style>
+
+ <style>
+    label, input { display:block; }
+    input.text { margin-bottom:12px; width:95%; padding: .4em; }
+    fieldset { padding:0; border:0; margin-top:25px; }
+    h1 { font-size: 1.2em; margin: .6em 0; }
+    div#users-contain { width: 350px; margin: 20px 0; }
+    div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+    div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+    .ui-dialog .ui-state-error { padding: .3em; }
+    .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    
+	.max_instances {float:right;}
+	.min_instances {float:left;}
+    .cjd-invalid {background-image: url(/images/invalid.png); background-position: right top; background-repeat: no-repeat;background-size: 25px;}
+   	.cjd-valid {background-image: url(/images/valid.png); background-position: right top;background-repeat: no-repeat;background-size: 25px;}
+   .code-popup { max-height: 500px;}
+
+   
+  </style>
+   
+</head>
+<body ng-app="pcfm" ng-cloak class="ng-cloak">
+
+<div id="dialog-form" title="Create Autoscale Rule">
+  <p class="validateTips">All form fields are required.</p>
+
+  <form>
+    <fieldset>
+      <label for="ruleURL">Rule Data URL</label>
+      <input type="text" name="ruleURL" id="ruleURL" class="text ui-widget-content ui-corner-all" autocomplete="off">
+      <label for="ruleAPIKey">Rule Data API Key</label>
+      <input type="password" name="ruleAPIKey" id="ruleAPIKey" class="text ui-widget-content ui-corner-all">
+      <label for="ruleExpression">Scale Rule</label>
+      <input type="hidden" name="ruleExpression" id="ruleExpression" class="text ui-widget-content ui-corner-all">
+        <div class="container bs-docs-container" style="width:650px;padding:10px;">
+	  		<div id="builder-basic"></div>
+		</div>
+      <input type="hidden" name="metricScale" id="metricScale" class="text ui-widget-content ui-corner-all">
+      <label class="min_instances" for="minInstances">Minimum Instances
+      <input type="text" name="minInstances" id="minInstances" class="text ui-widget-content ui-corner-all" style="font-weight:normal;">
+      </label>
+      <label class="max_instances" for="maxInstances">Maximum Instances
+      <input type="text" name="maxInstances" id="maxInstances" class="text ui-widget-content ui-corner-all" style="font-weight:normal;">
+     </label>
+     
+      <input type="hidden" name="spaceGUID" id="spaceGUID">
+      <input type="hidden" name="appGUID" id="appGUID">
+      <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        
+      <button style="position:absolute; top:-1000px" type="button" name="btnTest" id="btnTest">Test</button>
+      <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+    </fieldset>
+  </form>
+</div>
+
+<style>
+
+  .query-builder .rules-group-container {
+    background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
+    border: 1px solid gray;
+    padding: 10px 10px 6px;
+}
+
+.loading-spinner, .loading-spinner::before {
+    background-color: #283b48;
+    box-sizing: content-box;
+
+}
+
+body {
+    background-color: #243640;
+}
+</style>
+
+
+
+<div class="spinner-wrapper">
+<div class="loading-spinner" style="margin-left: 50%; margin-top: 20%">
+</div>
+</div>
+
+
+<div id="root">
+<div class="apps-manager">
+<div class="global-wrapper global-wrapper-header"></div>
+<div class="header whitelabel-bg-color"><a title="CJD PCF Manager">
+<div class="branding">
+<img class="image-logo" src="data:image/png;base64,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">
+<div class="brand-names mll"><h4 class="company-name man pan type-neutral-11">CJD</h4><h4 class="product-name man pvn pls type-neutral-11 em-high">PCF Manager</h4></div></div></a>
+<div class="dropdown btn-group account-dropdown pull-right mrxl">
+<button type="button" class="dropdown-toggle btn btn-lowlight"><!-- react-text: 15 -->admin<!-- /react-text --><span class="caret"></span>
+</button>
+<ul class="dropdown-menu dropdown-menu-right">
+<li class=""><a href="/log_out">Log out</a></li>
+</ul></div></div>
+<div class="layout">
+
+
+
+<div class="main-wrapper">
+<div class="page">
+<div class="space-page">
+
+
+	<div ng-view class="container"></div>
+	
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+	<script type="application/javascript" src="js/angular-1.4.7.min.js"></script>
+	<script type="application/javascript" src="js/angular-route-1.4.7.min.js"></script>
+	<script type="application/javascript" src="js/bootstrap-3.3.5.min.js"></script>
+	<script type="application/javascript" src="js/app.js"></script>
+		<script type="application/javascript" src="js/pcfm.js"></script>
+
+		
+		  <!-- Angular Material requires Angular.js Libraries -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+
+  <!-- Angular Material Library -->
+  <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.1.0/angular-material.min.js"></script>
+  
+  
+
+<script src="http://querybuilder.js.org/dist/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<script src="http://querybuilder.js.org/dist/jQuery-QueryBuilder/dist/js/query-builder.standalone.min.js"></script>
+<script src="http://querybuilder.js.org/dist/interact/dist/interact.min.js"></script>
+<script>var baseurl = 'http://querybuilder.js.org';</script>
+<script type="application/javascript" src="js/demo-basic.js"></script>
+<script type="application/javascript" src="js/demo.js"></script>
+
+
+<div class="tab-content">
+<div class="tab-pane fade in active">
+<div id="cjd">
+</div>
+</div>
+</div>
+
+<div class="footer whitelabel-bg-color">
+	<span class="logo">
+		<img alt="Pivotal footer logo" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEkAAAARCAYAAACRroFGAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyNpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIChNYWNpbnRvc2gpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjFEM0FBQTg3QkNFQTExRTM5MDk3RUU4MjZGMEZCMzVEIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjFEM0FBQTg4QkNFQTExRTM5MDk3RUU4MjZGMEZCMzVEIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MUQzQUFBODVCQ0VBMTFFMzkwOTdFRTgyNkYwRkIzNUQiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MUQzQUFBODZCQ0VBMTFFMzkwOTdFRTgyNkYwRkIzNUQiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5msHvmAAAD5ElEQVR42uRYa0hVQRC+Xi2pQMseZi97E2RPCyJ6WdDDEo3oIRoVmf0pyiDQTBKSsAgk8If5qxBBstTCDHtIlpGRyrUsKqMMLYIkrTStLPsmvoXldI5e02tGAx+zu2d2dnd2Z3b2uKWkprfbfqc2oBYoBTJj9kRf1j+ijwNsFlCMb8ts/zhhPTVg/lbr8bDoJ+0TiHAoyRMOBa19YEG+YJNlIzGfe70xpm6kejk1LA8FJgILADsQBhwB4vg9DRgJ1PwFO70lPwv0upFeY2f2G3YtEOwWMBDYjXoCZGQH02z/EXl09BHGKIdhLqG4BRgCjAZeoS2FrvgSMjGoh6C8k92q0XbQwlWmgSWzmgg5B9sHgG0CFgHDgUbgLuNhk8X0ljMMKKqC7GFtLD8w2fSlgLhoM9Ag8wceADdkfd02EqlBKw8iD2LgrmR9EhDK8ndM8Bgm0GCiayPlZMLhXMx8sBxgjEF2G5CE75HQVWiiayyhaLBmIAm+FwEvk36yERESpAGnLh17J0HSjXFJ0RsLUYllq1h2B4It5JQh87HwFugfh3IhDfQZSAX2ytDAR2AYkAe52Sa67gA7NCRzzj5gF2igT4yjK7ixclrreszdMNgUsEPAHDUpLKzRwi3fgV1FnwrwuUCIdgkofWKIQFazyePpxl+AxdBTocmfZmD2Bo5Sp07PIX/GZDpiMB+WwyBTZJhHvMmp7dpJgpJEQPKkZ8B2NreILZzQd558DXT0szhFoquA5XXkWbqBaPinvEWFVkKfp5NrCiIvNxroT8nK3dzJJdGUgRZiwPtO6Msl92LANDPSFXE1lkeRV1roU4G1PzDCyTX5kj925e2WxwHey+TpSk4RZJ9gx6tQDKB7XOfp9NZ2ONuka7uFym8mG9cZqRP8w2VG4rXs6IbOczSSnJx9bAvmWJKx57s4rWk1GMtl7tYdUifFHydopgqg5AWGvKeZ3M9C13iLVKQjqiWf12eNJC4niR2rITCUxJPVrOcYxEvIIyDnZbhAJFBHaYniBwu3MpLKqaZCR5TLM+4ecLnN3FkxwFcTVzvJ/Eoy+SIsKhb8EZPTJGA65U7ozyfKy423C1zFzHoYsoSpRxzfnumQWcq/GWLoYice0B5MMuvoum52FxkpQzJvYAYfor/SA+NpQF0CeyyrkkNdY8J6W7sdT0EuQ+um9Emimc4bNZdGtfHmXAu8kAUCkUxS1zvpCW38VSRG2gBstTM9F5R1wQhlHfXBQPJ3IJp/FoRuAgcsZI+DLeEzQiWrTTRYqPHRDUpgwphFvWr+DoPLB/A9mclbttowd/1yKjW0yTw82efhTwEGAJ+vU/dgy94oAAAAAElFTkSuQmCC">
+	</span>
+	<span class="legal-text">
+		<!-- react-text: 92 -->© <!-- /react-text --><!-- react-text: 93 -->2017<!-- /react-text --><!-- react-text: 94 --> Pivotal Software Inc. All rights reserved.<!-- /react-text -->
+		<span class="plm">
+			<a href="http://run.pivotal.io/policies/terms-of-service" class="policy-link" target="_blank">Terms</a>
+			<a href="http://run.pivotal.io/policies/privacy-policy" class="policy-link" target="_blank">Privacy</a>
+		</span>
+	</span>
+	<span class="right mrxl footer-right">
+		<button class="btn btn-default btn-sm feedback-btn">Feedback</button>
+		<!-- react-empty: 101 -->
+	</span>
+</div>
+
+<div id="myctrl" ng-app='app' ng-controller="MyCtrl"></div>
+<div id="rulectrl" ng-app='app' ng-controller="RuleCtrl"></div>
+
+<div class="global-wrapper global-wrapper-footer">
+</div>
+
+</div> <!-- appmanager -->
+</div> <!-- root -->
+
+
+  <script>
+    
+  $( function() {
+    var dialog, form,
+ 
+      // From http://www.whatwg.org/specs/web-apps/current-work/multipage/states-of-the-type-attribute.html#e-mail-state-%28type=email%29
+      emailRegex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
+      name = $( "#name" ),
+      email = $( "#email" ),
+      password = $( "#password" ),
+      allFields = $( [] ).add( name ).add( email ).add( password ),
+      tips = $( ".validateTips" );
+ 
+    function updateTips( t ) {
+      tips
+        .text( t )
+        .addClass( "ui-state-highlight" );
+      setTimeout(function() {
+        tips.removeClass( "ui-state-highlight", 1500 );
+      }, 500 );
+    }
+ 
+    function checkLength( o, n, min, max ) {
+      if ( o.val().length > max || o.val().length < min ) {
+        o.addClass( "ui-state-error" );
+        updateTips( "Length of " + n + " must be between " +
+          min + " and " + max + "." );
+        return false;
+      } else {
+        return true;
+      }
+    }
+ 
+    function checkRegexp( o, regexp, n ) {
+      if ( !( regexp.test( o.val() ) ) ) {
+        o.addClass( "ui-state-error" );
+        updateTips( n );
+        return false;
+      } else {
+        return true;
+      }
+    }
+    
+    function testRule() {
+    	
+    	
+    	
+    	 var result = $('#builder-basic').queryBuilder('getRules');
+    	 
+    	 alert(JSON.stringify(result, null, 2));
+    	 
+     //	$.ajax({
+	//		url : "/cloudinfo",
+	//		success:function(data) {
+	//			$("#ruleURL").css('background-color', '#66ff66');
+	//		},
+	//		error: function(jqXHR, textStatus, errorThrown) {
+	//			$("#ruleURL").css('background-color', '#ff3300');
+	//		}
+	//	});	  
+    }
+    
+
+ 
+    function addRule() {
+    	var valid = true;
+      	allFields.removeClass( "ui-state-error" );
+      
+     	ruleURL = $("#ruleURL").val();
+   		ruleAPIKey = $("#ruleAPIKey").val();
+   		
+   		
+   		//old way
+   		//metricKeyName = $("#metricKeyName").val();
+   		var result = $('#builder-basic').queryBuilder('getRules');
+   		//new way...
+    	ruleExpression = JSON.stringify(result);
+   		minInstances= $("#minInstances").val();
+   		maxInstances = $("#maxInstances").val();
+   		
+      	var t = angular.element($("#myctrl")).scope().anyFunc($("#appGUID").val(), $("#spaceGUID").val(), ruleURL, ruleAPIKey, ruleExpression, minInstances, maxInstances );
+      	
+      	//valid = valid && checkLength( name, "username", 3, 16 );
+      	//valid = valid && checkLength( email, "email", 6, 80 );
+      	//valid = valid && checkLength( password, "password", 5, 16 );
+ 
+      	//valid = valid && checkRegexp( name, /^[a-z]([0-9a-z_\s])+$/i, "Username may consist of a-z, 0-9, underscores, spaces and must begin with a letter." );
+      	//valid = valid && checkRegexp( email, emailRegex, "eg. ui@jquery.com" );
+      	//valid = valid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
+
+        dialog.dialog( "close" );
+      
+      	return valid;
+    }
+ 
+    dialog = $( "#dialog-form" ).dialog({
+      autoOpen: false,
+      height: 550,
+      width: 700,
+      modal: true,
+      buttons: {
+        "Create": addRule,
+    	Cancel: function() {
+      	dialog.dialog( "close" );
+        }
+      },
+      close: function() {
+        form[ 0 ].reset();
+        allFields.removeClass( "ui-state-error" );
+      }
+    });
+ 
+    form = dialog.find( "form" ).on( "submit", function( event ) {
+      	event.preventDefault();
+      	addRule();
+    });
+    
+    $(document).on('click','#scaler-rule',function() {
+     	$("#spaceGUID").val($(this).attr('spaceGUID'));
+    	$("#appGUID").val($(this).attr('appGUID'));
+    	
+       	$("#ruleURL").removeClass("cjd-invalid");
+       	$("#ruleURL").removeClass("cjd-valid");
+       	
+		dialog.dialog( "open" );
+    });
+ 
+    $(document).on('click','#create-user',function(){
+    	dialog.dialog( "open" );
+   	});
+    
+    $(document).on('click','.dropdown-toggle',function(){
+    	$(".dropdown-menu").show();  
+    });
+
+    $( ".dropdown-menu" ).mouseleave(function() {
+    	$(".dropdown-menu").hide(); 
+  	});
+
+    
+    
+    //TODO add code to check url and build rule engine...
+    $('input#ruleURL').keydown(function(e) {
+    $("#ruleURL").removeClass("cjd-invalid");
+    $("#ruleURL").removeClass("cjd-valid");
+    			    	
+    	$("#ruleURL").css('background-color', 'white');	
+    	
+    	var code = e.which;
+    	console.info("code=" + code);
+    	if ( code == 13 || code == 9 ) {
+             console.info('You pressed enter!');
+           	ruleURL = $("#ruleURL").val();
+             
+         	var t = angular.element($("#rulectrl")).scope().anyFunc(ruleURL);
+         	   
+                      
+         }
+    	
+  
+    });
+    
+
+  } );
+  </script>
+  
+ <script>
+// A $( document ).ready() block.
+$( document ).ready(function() {
+  $("#root").hide();  
+});
+
+var bootstrapButton = $.fn.button.noConflict() // return $.fn.button to previously assigned value
+$.fn.bootstrapBtn = bootstrapButton  
+</script>
+  
+</body>
+</html>
