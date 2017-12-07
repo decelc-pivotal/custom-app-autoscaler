@@ -82,19 +82,12 @@ public class ScalerWorker {
 			for (String envName : env.keySet()) {
 				System.out.println("[ScalerWorker] " + envName + "=" + env.get(envName) + "\n");
 			}
-
-			try {
-				vcap = (JSONObject) parser.parse(env.get("VCAP_APPLICATION"));
-				this.API_HOST = (String) vcap.get("cf_api");
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
 		}
 
-		// this.API_HOST = (String) vcap.get("cf_api");
+
 		this.LOGIN_HOST = System.getenv("LOGIN_HOST");
+		this.API_HOST = System.getenv("CC_HOST");
+
 		System.out.println("[ScalerWorker] LOGIN_HOST=" + LOGIN_HOST);
 		System.out.println("[ScalerWorker] API_HOST=" + API_HOST);
 

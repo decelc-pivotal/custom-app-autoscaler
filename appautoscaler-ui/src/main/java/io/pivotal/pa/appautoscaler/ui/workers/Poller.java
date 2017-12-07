@@ -438,18 +438,14 @@ public class Poller {
 		for (int i = 0; i < a.size(); i++) {
 
 			JSONObject obj = (JSONObject) a.get(i);
-			// System.out.println("#### array = " + obj.toJSONString());
+			System.out.println("#### array = " + obj.toJSONString());
 			JSONObject e = (JSONObject) obj.get(ENTITY);
 			JSONObject m = (JSONObject) obj.get(METADATA);
-			// System.out.println("#### array instance id = " +
-			// e.get("service_instance_guid"));
+			System.out.println("#### array instance id = " + e.get("service_instance_guid"));
 
-			// System.out.println("#### array instance id = " +
-			// e.get("service_instance_guid"));
-			// System.out.println("#### service instances name = " +
-			// e.get("name"));
-			// System.out.println("#### service instance e.toJSONString() = " +
-			// e.toJSONString());
+			System.out.println("#### array instance id = " + e.get("service_instance_guid"));
+			System.out.println("#### service instances name = " + e.get("name"));
+			System.out.println("#### service instance e.toJSONString() = " + e.toJSONString());
 
 			serviceInstanceGUID = (String) m.get("guid");
 			String name = (String) e.get("name");
@@ -462,16 +458,14 @@ public class Poller {
 
 		}
 
-		// System.out.println("#### serviceInstanceCreated = " +
-		// serviceInstanceCreated);
+		System.out.println("#### serviceInstanceCreated = " + serviceInstanceCreated);
 
 		if (!serviceInstanceCreated) {
 			// create the service instance =
 
 			JSONObject servicePlan = getServicePlan();
 
-			// System.out.println("###### serviceplan=" +
-			// servicePlan.get("guid"));
+			System.out.println("###### serviceplan=" + servicePlan.get("guid"));
 
 			// create the service instance.... need the plan to do that
 
@@ -479,16 +473,13 @@ public class Poller {
 					(String) rulejson.get("spaceGUID"),
 					(String) rulejson.get("appGUID"));
 
-		}
-
-		if (!isAppBoundToService((String) rulejson.get("appGUID"), serviceInstanceGUID)) {
+		} else if (!isAppBoundToService((String) rulejson.get("appGUID"), serviceInstanceGUID)) {
 
 			createServiceBinding(serviceInstanceGUID, (String) rulejson.get("appGUID"));
 
 		}
 
-		// System.out.println("######## return from service bindings=" +
-		// j.toJSONString());
+		System.out.println("######## return from service bindings=" + j.toJSONString());
 
 		return serviceInstanceGUID;
 
@@ -521,9 +512,9 @@ public class Poller {
 		request.put("space_guid", spaceGUID);
 
 		printMessage("post body=" + request);
-		System.out.println("############ body=" + request);
-		System.out.println("############ servicePlanGUID=" + servicePlanGUID);
-		System.out.println("############ spaceGUID=" + spaceGUID);
+		System.out.println("############ createServiceInstance body=" + request);
+		System.out.println("############ createServiceInstance servicePlanGUID=" + servicePlanGUID);
+		System.out.println("############ createServiceInstance spaceGUID=" + spaceGUID);
 
 		ResponseEntity<String> r = null;
 
@@ -570,8 +561,8 @@ public class Poller {
 
 	private void createServiceBinding(String serviceInstanceGUID, String appGUID) {
 
-		System.out.println("###### serviceInstanceGUID=" + serviceInstanceGUID);
-		System.out.println("###### appGUID=" + appGUID);
+		System.out.println("###### createServiceBinding serviceInstanceGUID=" + serviceInstanceGUID);
+		System.out.println("###### createServiceBinding appGUID=" + appGUID);
 
 		// Install the all-trusting trust manager
 		try {
@@ -710,8 +701,6 @@ public class Poller {
 	}
 
 	private JSONObject httpGet(String url) {
-		System.out.println("###### httpGet() url=" + url);
-
 		RestTemplate restTemplate = new RestTemplate();
 
 		HttpHeaders headers = new HttpHeaders();
