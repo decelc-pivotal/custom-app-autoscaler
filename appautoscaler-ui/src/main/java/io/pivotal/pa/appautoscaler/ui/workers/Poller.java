@@ -32,9 +32,11 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.common.util.concurrent.AbstractScheduledService.Scheduler;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class Poller {
 
-	private static final Logger log = LoggerFactory.getLogger(Scheduler.class);
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
 
 	private static String SPACES_URL = null;
@@ -98,7 +100,7 @@ public class Poller {
 		JSONObject json = httpGet("/v2/organizations");
 
 		JSONArray a = (JSONArray) json.get(RESOURCES);
-		printMessage("ORGANIZATIONs= " + a.size());
+		log.info("ORGANIZATIONs= " + a.size());
 
 		HashMap<String, String> spaces = new HashMap<String, String>();
 		HashMap<String, String> orgs = new HashMap<String, String>();
@@ -107,9 +109,9 @@ public class Poller {
 
 			JSONObject o = (JSONObject) a.get(i);
 
-			// printMessage("org=" + o.toString());
+			// log.info("org=" + o.toString());
 			JSONObject md = (JSONObject) o.get(ENTITY);
-			// printMessage("spaces =" + md.get("spaces_url"));
+			// log.info("spaces =" + md.get("spaces_url"));
 
 			JSONObject md2 = (JSONObject) o.get(METADATA);
 			orgs.put((String) md2.get("guid"), (String) md.get("name"));
@@ -163,9 +165,9 @@ public class Poller {
 
 	public JSONObject login(String systemDomain, String username, String password) {
 
-		printMessage("[LOGIN] domain=" + systemDomain);
-		printMessage("[LOGIN] username=" + username);
-		printMessage("[LOGIN] password=" + password);
+		log.info("[LOGIN] domain=" + systemDomain);
+		log.info("[LOGIN] username=" + username);
+		log.info("[LOGIN] password=" + password);
 
 		this.USERNAME = username;
 		this.PASSWORD = password;
@@ -192,25 +194,25 @@ public class Poller {
 		postBody.add("username", username);
 		postBody.add("password", password);
 
-		printMessage("post body=" + postBody);
+		log.info("post body=" + postBody);
 
 		ResponseEntity<String> r = null;
 
 		try {
-			printMessage("##loginURL" + this.LOGIN_HOST + "/oauth/token");
+			log.info("##loginURL" + this.LOGIN_HOST + "/oauth/token");
 
 			r = restTemplate.exchange(this.LOGIN_HOST + "/oauth/token", HttpMethod.POST,
 					new HttpEntity<>(postBody, headers),
 					String.class);
 
-			printMessage("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
+			log.info("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
 
 		} catch (Exception e) {
 
-			printMessage("Exception");
+			log.info("Exception");
 			e.printStackTrace();
 			if (r != null) {
-				printMessage("EXCEPTION =" + r.getStatusCodeValue() + " object=" + r.getBody());
+				log.info("EXCEPTION =" + r.getStatusCodeValue() + " object=" + r.getBody());
 			}
 			org.json.simple.JSONObject json = new JSONObject();
 			json.put("return_code", "404");
@@ -229,20 +231,20 @@ public class Poller {
 
 		this.HOST = this.LOGIN_HOST.replace("login", "api");
 
-		printMessage("this.APPS_DOMAIN=" + this.APPS_DOMAIN);
-		printMessage("this.LOGIN_HOST=" + this.LOGIN_HOST);
-		printMessage("this.HOST=" + this.HOST);
-		printMessage("RETURN=" + r.getStatusCodeValue() + " object=" + r.getBody());
-		printMessage("Access Token=" + json.get("access_token"));
+		log.info("this.APPS_DOMAIN=" + this.APPS_DOMAIN);
+		log.info("this.LOGIN_HOST=" + this.LOGIN_HOST);
+		log.info("this.HOST=" + this.HOST);
+		log.info("RETURN=" + r.getStatusCodeValue() + " object=" + r.getBody());
+		log.info("Access Token=" + json.get("access_token"));
 
 		return json;
 	}
 
 	public JSONObject addRule(String rule) {
 
-		printMessage("[addRule] rule=" + rule);
-		printMessage("[addRule] username=" + USERNAME);
-		printMessage("[addRule] password=[redacted]");
+		log.info("[addRule] rule=" + rule);
+		log.info("[addRule] username=" + USERNAME);
+		log.info("[addRule] password=[redacted]");
 
 		// Install the all-trusting trust manager
 		try {
@@ -273,7 +275,7 @@ public class Poller {
 			e1.printStackTrace();
 		}
 
-		printMessage("rulejson=" + rulejson);
+		log.info("rulejson=" + rulejson);
 		request.put("spaceGUID", (String) rulejson.get("spaceGUID"));
 		request.put("appGUID", (String) rulejson.get("appGUID"));
 		request.put("ruleURL", (String) rulejson.get("ruleURL"));
@@ -291,7 +293,7 @@ public class Poller {
 		try {
 			r = restTemplate.exchange("http://appautoscaler-" + serviceInstanceGUID + "." + this.APPS_DOMAIN + "/rules",
 					HttpMethod.POST, entity, String.class);
-			printMessage("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
+			log.info("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
 
 		} catch (HttpClientErrorException e) {
 
@@ -306,7 +308,7 @@ public class Poller {
 			e1.printStackTrace();
 		}
 
-		printMessage("RETURN=" + r.getStatusCodeValue() + " object=" + r.getBody());
+		log.info("RETURN=" + r.getStatusCodeValue() + " object=" + r.getBody());
 
 		return json;
 	}
@@ -345,7 +347,7 @@ public class Poller {
 	}
 
 	private HttpHeaders getCCHeader(String accessToken, String host) {
-		printMessage("getCCHeader() accessToken=" + accessToken + " host=" + host);
+		log.info("getCCHeader() accessToken=" + accessToken + " host=" + host);
 		HttpHeaders headers = new HttpHeaders();
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		headers.add("Authorization", "bearer " + accessToken);
@@ -378,7 +380,7 @@ public class Poller {
 
 		ResponseEntity<String> r = restTemplate.exchange(LOGIN_HOST + "/oauth/token", HttpMethod.POST,
 				new HttpEntity<>(postBody, headers), String.class);
-		printMessage("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
+		log.info("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
 
 		org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 		org.json.simple.JSONObject json = null;
@@ -389,7 +391,7 @@ public class Poller {
 			e1.printStackTrace();
 		}
 
-		printMessage("Access Token=" + json.get("access_token"));
+		log.info("Access Token=" + json.get("access_token"));
 
 		return (String) json.get("access_token");
 	}
@@ -402,14 +404,14 @@ public class Poller {
 		for (int i = 0; i < a.size(); i++) {
 			JSONObject o = (JSONObject) a.get(i);
 
-			// printMessage("org=" + o.toString());
+			// log.info("org=" + o.toString());
 			JSONObject md = (JSONObject) o.get(type);
-			printMessage("spaces =" + md.get(keyName));
+			log.info("spaces =" + md.get(keyName));
 
 			String value = (String) md.get(keyName);
 
 			if (value != null && keyValue.equals(value)) {
-				printMessage("equalskeyvalue" + keyValue);
+				log.info("equalskeyvalue" + keyValue);
 
 				if (returnType == null) {
 					return o;
@@ -421,7 +423,7 @@ public class Poller {
 				}
 			}
 		}
-		printMessage("Organiztions=" + json.toString());
+		log.info("Organiztions=" + json.toString());
 
 		return null;
 	}
@@ -438,14 +440,11 @@ public class Poller {
 		for (int i = 0; i < a.size(); i++) {
 
 			JSONObject obj = (JSONObject) a.get(i);
-			System.out.println("#### array = " + obj.toJSONString());
 			JSONObject e = (JSONObject) obj.get(ENTITY);
 			JSONObject m = (JSONObject) obj.get(METADATA);
-			System.out.println("#### array instance id = " + e.get("service_instance_guid"));
-
-			System.out.println("#### array instance id = " + e.get("service_instance_guid"));
-			System.out.println("#### service instances name = " + e.get("name"));
-			System.out.println("#### service instance e.toJSONString() = " + e.toJSONString());
+			//log.info("service instance guid = " + e.get("service_instance_guid"));
+			//log.info("service instances name = " + e.get("name"));
+			//log.info("service instance e.toJSONString() = " + e.toJSONString());
 
 			serviceInstanceGUID = (String) m.get("guid");
 			String name = (String) e.get("name");
@@ -458,14 +457,14 @@ public class Poller {
 
 		}
 
-		System.out.println("#### serviceInstanceCreated = " + serviceInstanceCreated);
+		log.info("serviceInstanceCreated = " + serviceInstanceCreated);
 
 		if (!serviceInstanceCreated) {
 			// create the service instance =
 
 			JSONObject servicePlan = getServicePlan();
 
-			System.out.println("###### serviceplan=" + servicePlan.get("guid"));
+			log.info("serviceplan=" + servicePlan.get("guid"));
 
 			// create the service instance.... need the plan to do that
 
@@ -479,7 +478,7 @@ public class Poller {
 
 		}
 
-		System.out.println("######## return from service bindings=" + j.toJSONString());
+		log.info("return from service bindings=" + j.toJSONString());
 
 		return serviceInstanceGUID;
 
@@ -511,22 +510,22 @@ public class Poller {
 		request.put("service_plan_guid", servicePlanGUID);
 		request.put("space_guid", spaceGUID);
 
-		printMessage("post body=" + request);
-		System.out.println("############ createServiceInstance body=" + request);
-		System.out.println("############ createServiceInstance servicePlanGUID=" + servicePlanGUID);
-		System.out.println("############ createServiceInstance spaceGUID=" + spaceGUID);
+		log.info("post body=" + request);
+		log.info("createServiceInstance body=" + request);
+		log.info("createServiceInstance servicePlanGUID=" + servicePlanGUID);
+		log.info("createServiceInstance spaceGUID=" + spaceGUID);
 
 		ResponseEntity<String> r = null;
 
 		try {
-			// printMessage("##loginURL" + loginURL + "/oauth/token");
-			System.out.println("############ host=" + HOST + "/v2/service_instances?accepts_incomplete=false");
+			// log.info("##loginURL" + loginURL + "/oauth/token");
+			log.info("host=" + HOST + "/v2/service_instances?accepts_incomplete=false");
 
 			r = restTemplate.exchange(HOST + "/v2/service_instances?accepts_incomplete=true", HttpMethod.POST,
 					new HttpEntity<>(request.toString(), headers),
 					String.class);
 
-			printMessage("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
+			log.info("Return = " + r.getBody() + " status" + r.getStatusCodeValue());
 
 			org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 			org.json.simple.JSONObject json = null;
@@ -543,26 +542,20 @@ public class Poller {
 
 		} catch (Exception e) {
 
-			printMessage("Exception");
+			log.info("Exception");
 			e.printStackTrace();
 			if (r != null) {
-				printMessage("EXCEPTION =" + r.getStatusCodeValue() + " object=" + r.getBody());
+				log.info("EXCEPTION =" + r.getStatusCodeValue() + " object=" + r.getBody());
 			}
 			org.json.simple.JSONObject json = new JSONObject();
 			json.put("return_code", "404");
-
-			// return json;
-			// json.put, value)
 		}
-
-		// printMessage("RETURN=" + r.getStatusCodeValue() + " object=" +
-		// r.getBody());
 	}
 
 	private void createServiceBinding(String serviceInstanceGUID, String appGUID) {
 
-		System.out.println("###### createServiceBinding serviceInstanceGUID=" + serviceInstanceGUID);
-		System.out.println("###### createServiceBinding appGUID=" + appGUID);
+		log.info("createServiceBinding serviceInstanceGUID=" + serviceInstanceGUID);
+		log.info("createServiceBinding appGUID=" + appGUID);
 
 		// Install the all-trusting trust manager
 		try {
@@ -584,20 +577,14 @@ public class Poller {
 		request.put("service_instance_guid", serviceInstanceGUID);
 		request.put("app_guid", appGUID);
 
-		printMessage("post body=" + request);
-		System.out.println("###### post body==" + request.toJSONString());
+		log.info("post body=" + request);
+		log.info("post body==" + request.toJSONString());
 
 		ResponseEntity<String> r = null;
 
 		try {
-			// printMessage("##loginURL" + loginURL + "/oauth/token");
-
 			r = restTemplate.exchange(HOST + "/v2/service_bindings", HttpMethod.POST,
 					new HttpEntity<>(request.toString(), headers), String.class);
-
-			// printMessage("createServiceBinding = " + r.getBody() + " status"
-			// + r.getStatusCodeValue());
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -625,7 +612,7 @@ public class Poller {
 		// get list of organizations for host
 		r = restTemplate.exchange(HOST + "/v2/services", HttpMethod.GET, new HttpEntity<>(postBody, headers),
 				String.class);
-		printMessage("Return servicebindings = " + r.getBody() + " status" + r.getStatusCodeValue());
+		log.info("Return servicebindings = " + r.getBody() + " status" + r.getStatusCodeValue());
 
 		parser = new org.json.simple.parser.JSONParser();
 
@@ -639,38 +626,19 @@ public class Poller {
 
 		JSONArray a = (JSONArray) json.get(RESOURCES);
 
-		// System.out.println("#### array = " + a.size());
-
 		for (int i = 0; i < a.size(); i++) {
 
 			JSONObject obj = (JSONObject) a.get(i);
-			// System.out.println("#### array = " + obj.toJSONString());
 			JSONObject e = (JSONObject) obj.get("entity");
-			// System.out.println("#### array instance id = " +
-			// e.get("service_instance_guid"));
-
-			// System.out.println("#### array instance id = " +
-			// e.get("service_instance_guid"));
-			// System.out.println("#### service instances name = " +
-			// e.get("label"));
-
 			String name = (String) e.get("label");
-			// System.out.println("#### service instances name = " + name);
 
 			if (name.equals("custom-appautoscaler")) {
-				// System.out.println("#### service_plans_url = " + (String)
-				// e.get("service_plans_url"));
-
 				JSONObject j = httpGet((String) e.get("service_plans_url"));
-
 				JSONArray resources = (JSONArray) j.get(RESOURCES);
 
 				// only 1 service plan
 				JSONObject servicePlan = (JSONObject) resources.get(0);
 				JSONObject metadata = (JSONObject) servicePlan.get(METADATA);
-				// System.out.println("#### get data service plans = " +
-				// metadata.toJSONString());
-
 				return metadata;
 			}
 
@@ -716,10 +684,10 @@ public class Poller {
 
 		String accessToken = getOAuthToken();
 		headers = getCCHeader(accessToken, HOST);
-		System.out.println("########## httpGet url =" + HOST + url);
+		log.info("httpGet url =" + HOST + url);
 
 		r = restTemplate.exchange(HOST + url, HttpMethod.GET, new HttpEntity<>(postBody, headers), String.class);
-		printMessage("Return servicebindings = " + r.getBody() + " status" + r.getStatusCodeValue());
+		log.info("Return servicebindings = " + r.getBody() + " status" + r.getStatusCodeValue());
 
 		parser = new org.json.simple.parser.JSONParser();
 
@@ -735,8 +703,8 @@ public class Poller {
 
 	private ResponseEntity httpPost(String url, JSONObject postData) {
 
-		System.out.println("###### httpPost() url=" + url);
-		System.out.println("###### httpPost() postData=" + postData.toJSONString());
+		log.info("httpPost() url=" + url);
+		log.info("httpPost() postData=" + postData.toJSONString());
 
 		try {
 			SSLContext sc = SSLContext.getInstance("SSL");
@@ -764,10 +732,4 @@ public class Poller {
 
 		return r;
 	}
-
-	private void printMessage(String message) {
-		if (debug)
-			System.out.println(message);
-	}
-
 }
