@@ -1,0 +1,8 @@
+---
+instances: 1
+memory: 1024M
+applications:
+- name: appautoscaler-service-broker
+  path: ./target/appautoscaler-service-broker-0.0.1-SNAPSHOT.jar
+  env:
+    CF_ADMIN_USER: autoscaler_admin
