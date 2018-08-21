@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.pivotal.pa.appautoscaler</groupId>
+	<artifactId>appautoscaler-parent</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<name>Custom App Autoscaler</name>
+	<description>Custom App Autoscaler for PCF</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.5.4.RELEASE</version>
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<caffeine.version>2.4.0</caffeine.version>
+		<java.version>1.8</java.version>
+		<reactor.version>3.0.7.RELEASE</reactor.version>
+		<tilefactory.version>0.1-SNAPSHOT</tilefactory.version>
+	</properties>
+
+	<modules>
+		<module>appautoscaler-worker</module>
+		<module>appautoscaler-service-broker</module>
+	</modules>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<extensions>
+			<extension>
+				<groupId>org.kuali.maven.wagons</groupId>
+				<artifactId>maven-s3-wagon</artifactId>
+				<version>1.2.1</version>
+			</extension>
+		</extensions>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.pivotal.springcloud.tilefactory</groupId>
+				<artifactId>tilefactory-starter</artifactId>
+				<version>${tilefactory.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.projectreactor</groupId>
+				<artifactId>reactor-core</artifactId>
+				<version>${reactor.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<repositories>
+		<repository>
+			<id>spring-releases</id>
+			<name>Spring Repository</name>
+			<url>https://repo.spring.io/libs-release</url>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestone Repository</name>
+			<url>https://repo.spring.io/libs-milestone</url>
+		</repository>
+	</repositories>
+
+</project>
